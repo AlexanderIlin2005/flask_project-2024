@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Оценка продукта</h1>
+<form action="/rate" method="post">
+    <label for="manufacturer">Производитель:</label>
+    <select name="manufacturer" id="manufacturer">
+        {% for manufacturer in unique_manifacturers %}
+            <option value="{{ manufacturer }}">{{ manufacturer }}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+    <label for="rating">Рейтинг:</label>
+    <select name="rating" id="rating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+
+    <br>
+
+    <input type="submit" value="Оценить">
+</form>
+{% endblock %}

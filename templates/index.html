@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<center><p><h1>Красота от природы</h1><br>
+</p></center>
+
+<br>
+<br>
+{% if molodec == True %}
+
+<a href="/logout" style="float: right;">Выйти</a>
+
+
+<form action="/search" method="post">
+        <p>
+	    <input type="text" name="search_value">
+	</p>
+	<p>
+	    <input type="submit" value="Поиск">
+	</p>
+    </form>
+
+<a href="/rate" style="float: right;">Оценить производителя</a>
+
+{% else %}
+
+<center><a href="/about">О проекте</a></center>
+
+<center><a href="/login">Войти</a></center>
+
+<center><a href="/register">Регистрация</a></center>
+
+
+{% endif %}
+<br>
+<br>
+<form action="/" method="get">
+
+
+<select name="filter_manufacturer" id="filter_manufacturer">
+    <option value="">Производитель</option>
+    {% for manufacturer in unique_manifacturers %}
+        <option value="{{ manufacturer }}" {% if manufacturer == filter_manufacturer %} selected {% endif %}>{{ manufacturer }}</option>
+    {% endfor %}
+</select>
+
+
+
+<select name="filter_product" id="filter_product">
+    <option value="">Продукт</option>
+    {% for product in unique_products %}
+        <option value="{{ product }}" {% if product == filter_product %} selected {% endif %}>{{ product }}</option>
+    {% endfor %}
+</select>
+
+<select name="filter_price" id="filter_price">
+    <option value="">Цена</option>
+    {% for price in unique_prices %}
+        <option value="{{ price }}" {% if price == filter_price %} selected {% endif %}>{{ price }}</option>
+    {% endfor %}
+</select>
+
+<select name="filter_min_quantity" id="filter_min_quantity">
+    <option value="">Количество</option>
+    {% for min_quantity in unique_min_quantities %}
+        <option value="{{ min_quantity }}" {% if min_quantity == filter_min_quantity %} selected {% endif %}>{{ min_quantity }}</option>
+    {% endfor %}
+</select>
+
+<select name="filter_type" id="filter_type">
+    <option value="">Тип средства</option>
+    {% for type in unique_types %}
+        <option value="{{ type }}" {% if type == filter_type %} selected {% endif %}>{{ type }}</option>
+    {% endfor %}
+</select>
+<input type="submit" value="Применить">
+
+</form>
+
+
+<br>
+
+<style type="text/css">
+   TD, TH {
+    padding: 5px; /* Поля вокруг содержимого таблицы */
+    border: 1px solid black; /* Параметры рамки */
+   }
+
+
+  </style>
+
+
+<table bordercolor="grey">
+    <tr>
+        <th>Производитель</th>
+        <th>Продукт</th>
+        <th>Цена</th>
+        <th>Партия, шт</th>
+        <th>Тип средства</th>
+        <th>Число отзывов</th>
+        <th>Средняя оценка</th>
+    </tr>
+    {% for composition in compositions %}
+    <tr>
+        <td>{{ composition.Manufacturer }}</td>
+        <td>{{ composition.Product }}</td>
+        <td>{{ composition.Price }}</td>
+        <td>{{ composition.Min_quantity }}</td>
+        <td>{{ composition.Type }}</td>
+        <td>{{ composition.Rating_count if composition.Rating_count else ""}}</td>
+        <td>{{ composition.Rating_avg if composition.Rating_avg else "" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<br>
+{% endblock %}

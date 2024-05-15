@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<center><p><h1>ДНЕВНИК ЧИТАТЕЛЯ</h1><br>
+</p></center>
+<center><a href="/about">О проекте "Дневник читателя"</a></center>
+<br>
+<br>
+{% if molodec == True %}
+<table>
+    <tr>
+        <td>
+<form action="/logout"><button style="height:50px;width:150px;font-size:20px"> Выйти</button></form>
+        </td>
+
+    <td>
+<form action="/download"><button style="height:50px;width:500px;font-size:20px"> Загрузить форму для дневника читателя</button></form>
+    </td>
+
+    <td>
+<form action="/change_sort_by_author"><button style="height:50px;width:120px;font-size:20px"> По автору</button></form>
+    </td>
+
+    <td>
+<form action="/change_sort_by_class"><button style="height:50px;width:120px;font-size:20px"> По классу</button></form>
+    </td>
+
+    <td>
+<form action="/search" method="post">
+        <p>
+	    <input type="text" name="search_value">
+	</p>
+	<p>
+	    <input type="submit" value="Поиск">
+	</p>
+    </form>
+    </td>
+
+    </tr>
+</table>
+{% else %}
+<table>
+    <tr>
+        <td>
+<form action="/login"><button style="height:50px;width:150px;font-size:20px"> Войти</button></form>
+        </td>
+    <td>
+<form action="/register"><button style="height:50px;width:150px;font-size:20px"> Регистрация</button></form>
+    </td>
+    </tr>
+</table>
+{% endif %}
+<br>
+<br>
+<table>
+        <tr>
+            <th>Название произведения</th>
+            <th>Автор</th>
+            <th>Год издания</th>
+            <th>Класс</th>
+            <th>Тип</th>
+        </tr>
+        {% for composition in compositions %}
+        <tr>
+            <td><a href="/{{composition.Name}}">{{ composition.Name }}</a></td>
+            <td><a href="https://ru.wikipedia.org/wiki/{{composition.Author}}">{{ composition.Author }}</a></td>
+            <td>{{ composition.Year }}</td>
+            <td>{{ composition.Class }}</td>
+            <td>{{ composition.Literature_type }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% endblock %}
